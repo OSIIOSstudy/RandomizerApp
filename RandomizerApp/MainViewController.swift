@@ -7,13 +7,34 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
-
+final class MainViewController: UIViewController {
+    // MARK: - @IBOutlets
+    @IBOutlet var minimumValueLabel: UILabel!
+    @IBOutlet var maximumValueLabel: UILabel!
+    
+    @IBOutlet var randomValueLabel: UILabel!
+    
+    @IBOutlet var getResultButton: UIButton!
+    
+    // MARK: - LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        randomValueLabel.text = "?"
+        getResultButton.layer.cornerRadius = 10
     }
-
-
+    
+    @IBAction func getResultButtonPressed() {
+        let minimumValue = Int(minimumValueLabel.text ?? "") ?? 0
+        let maximumValue = Int(maximumValueLabel.text ?? "") ?? 100
+        
+        randomValueLabel.text = Int.random(in: minimumValue...maximumValue).formatted()
+    }
+    
+    @IBAction func unwindSegue(_ segue: UIStoryboardSegue) {
+        guard let settingsViewController = segue.source as? SettingsViewController else { return }
+        minimumValueLabel.text = settingsViewController.minimumValueTextField.text
+        maximumValueLabel.text = settingsViewController.maximumValueTextField.text
+    }
 }
 
