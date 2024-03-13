@@ -11,9 +11,14 @@ class SettingsViewController: UIViewController {
     @IBOutlet var minimumValueTextField: UITextField!
     @IBOutlet var maximumValueTextField: UITextField!
     
+    var minimumValue: String!
+    var maximumValue: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        minimumValueTextField.text = minimumValue
+        maximumValueTextField.text = maximumValue
     }
     
     @IBAction func cancelButtonPressed() {
